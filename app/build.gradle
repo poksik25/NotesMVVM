@@ -8,6 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
+
         applicationId "com.poklad.notesmvvm"
         minSdk 24
         targetSdk 33
@@ -29,6 +30,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
