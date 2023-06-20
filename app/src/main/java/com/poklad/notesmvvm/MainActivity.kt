@@ -10,7 +10,7 @@ import com.poklad.notesmvvm.utlits.APP_ACTIVITY
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mToolbar: Toolbar
-    private lateinit var mNavController: NavController
+    lateinit var mNavController: NavController
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
