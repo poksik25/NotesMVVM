@@ -8,6 +8,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.poklad.notesmvvm.R
 import com.poklad.notesmvvm.databinding.FragmentNoteBinding
@@ -29,6 +32,25 @@ class NoteFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.note_action_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.btn_delete -> mViewModel.delete(currentNote) {
+                        APP_ACTIVITY.navController.navigate(R.id.action_noteFragment_to_mainFragment)
+                    }
+                }
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
     override fun onStart() {
         super.onStart()
         initialization()
@@ -36,23 +58,7 @@ class NoteFragment : Fragment() {
 
     private fun initialization() {
         mViewModel = ViewModelProvider(this)[NoteFragmentViewModel::class.java]
-        setHasOptionsMenu(true)
         binding.noteName.text = currentNote.name
         binding.noteText.text = currentNote.text
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.note_action_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.btn_delete -> mViewModel.delete(currentNote) {
-                APP_ACTIVITY.navController.navigate(R.id.action_noteFragment_to_mainFragment)
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
 }
