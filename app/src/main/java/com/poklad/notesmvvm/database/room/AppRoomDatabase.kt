@@ -8,7 +8,6 @@ import com.poklad.notesmvvm.model.AppNote
 
 @Database(entities = [AppNote::class], version = 1, exportSchema = false)
 abstract class AppRoomDatabase : RoomDatabase() {
-
     abstract fun getAppRoomDao(): AppRoomDao
 
     companion object {

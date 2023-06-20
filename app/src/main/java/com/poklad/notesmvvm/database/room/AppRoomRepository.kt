@@ -11,10 +11,12 @@ class AppRoomRepository(
         get() = appRoomDao.getAllNotes()
 
     override suspend fun insert(note: AppNote, onSuccess: () -> Unit) {
-        appRoomDao.insertNote(note)
+        appRoomDao.insert(note)
+        onSuccess()//todo зачем
     }
 
     override suspend fun delete(note: AppNote, onSuccess: () -> Unit) {
         appRoomDao.deleteNote(note)
+        onSuccess()
     }
 }
