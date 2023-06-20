@@ -1,4 +1,5 @@
 package com.poklad.notesmvvm.screens.main
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,18 @@ class MainNoteAdapter() : RecyclerView.Adapter<MainNoteAdapter.MainNoteHolder>()
     fun setList(list: List<AppNote>) {
         this.mListNotes = list
         notifyDataSetChanged()
+    }
+
+    override fun onViewAttachedToWindow(holder: MainNoteHolder) {
+        super.onViewAttachedToWindow(holder)
+        holder.itemView.setOnClickListener {
+            MainFragment.click(mListNotes[holder.adapterPosition])
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: MainNoteHolder) {
+        holder.itemView.setOnClickListener(null)
+        super.onViewDetachedFromWindow(holder)
     }
 
     inner class MainNoteHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

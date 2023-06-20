@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/noteFragment"
-        android:name="com.poklad.notesmvvm.screens.NoteFragment"
+        android:name="com.poklad.notesmvvm.screens.note.NoteFragment"
         android:label="fragment_note"
         tools:layout="@layout/fragment_note" >
         <action

@@ -10,7 +10,7 @@ import com.poklad.notesmvvm.utlits.APP_ACTIVITY
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mToolbar: Toolbar
-    lateinit var mNavController: NavController
+    lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         APP_ACTIVITY =
             this                             //todo контекст из любого места в приложении. Так МОЖНО?
         mToolbar = binding.toolbar
-        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
         setSupportActionBar(mToolbar)
         title = getString(R.string.notes)
     }

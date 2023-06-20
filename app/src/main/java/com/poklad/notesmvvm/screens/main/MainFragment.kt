@@ -12,6 +12,7 @@ import com.poklad.notesmvvm.R
 import com.poklad.notesmvvm.databinding.FragmentMainBinding
 import com.poklad.notesmvvm.model.AppNote
 import com.poklad.notesmvvm.utlits.APP_ACTIVITY
+import com.poklad.notesmvvm.utlits.KEY_PARCELABLE_NOTES
 
 
 class MainFragment : Fragment() {
@@ -45,7 +46,7 @@ class MainFragment : Fragment() {
         mViewModel = ViewModelProvider(this)[MainFragmentViewModel::class.java]//TODO може так?
         mViewModel.allNotes.observe(this, observerList)
         binding.flBtnAddNote.setOnClickListener {
-            APP_ACTIVITY.mNavController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
+            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
         }
     }
 
@@ -53,5 +54,13 @@ class MainFragment : Fragment() {
         super.onDestroy()
         mViewModel.allNotes.removeObserver(observerList)
         recycleViewNotes.adapter = null
+    }
+
+    companion object {
+        fun click(note: AppNote) {
+            val bundle = Bundle()
+            bundle.putSerializable(KEY_PARCELABLE_NOTES, note)
+            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
+        }
     }
 }

@@ -24,7 +24,7 @@ class StartFragment : Fragment() {
         startViewModel = ViewModelProvider(this)[StartFragmentViewModel::class.java]
         binding.btnRoom.setOnClickListener {
             startViewModel.initDatabase(TYPE_ROOM) {
-                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_mainFragment)
+                APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
             }
         }
     }
