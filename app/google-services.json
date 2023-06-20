@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "804225246995",
+    "firebase_url": "https://notesmvvm-b235e-default-rtdb.firebaseio.com",
+    "project_id": "notesmvvm-b235e",
+    "storage_bucket": "notesmvvm-b235e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804225246995:android:e52ad2619aa450ba549ce6",
+        "android_client_info": {
+          "package_name": "com.poklad.notesmvvm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804225246995-elteaa92st2gikg0l18gi4c884q57f9h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl-4PfJWhBquYpaOIFsqMPf09HUPivwfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804225246995-elteaa92st2gikg0l18gi4c884q57f9h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
