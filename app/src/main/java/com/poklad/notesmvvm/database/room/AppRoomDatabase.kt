@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.poklad.notesmvvm.model.AppNote
 
-@Database(entities = [AppNote::class], version = 1, exportSchema = false)
+@Database(entities = [AppNote::class], version = 1)
 abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun getAppRoomDao(): AppRoomDao
 

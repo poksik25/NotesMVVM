@@ -23,7 +23,5 @@ class MainActivity : AppCompatActivity() {
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
         setSupportActionBar(mToolbar)
         title = getString(R.string.notes)
-
-
     }
 }
