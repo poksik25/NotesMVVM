@@ -15,6 +15,14 @@ object AppPreference {
         return mPreferences
     }
 
+    //пора учиться делать код под котлин кодстаил
+    //как тут
+    var isUserInit : Boolean
+    get() = mPreferences.getBoolean(INIT_USER, false)
+    set(value) = mPreferences.edit()
+            .putBoolean(INIT_USER, value)
+            .apply()
+
     fun setInitUser(init: Boolean) {
         mPreferences.edit()
             .putBoolean(INIT_USER, init)
