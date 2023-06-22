@@ -13,7 +13,7 @@ class AddNewNoteViewModel(
 ) : AndroidViewModel(application) {
 
     fun insert(note: AppNote, onSuccess: () -> Unit) =
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.Main) { //а приложение не падает?)
             REPOSITORY.insert(note) {
                 onSuccess()
             }
