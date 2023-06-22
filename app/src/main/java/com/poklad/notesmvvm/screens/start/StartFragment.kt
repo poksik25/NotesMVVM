@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.poklad.notesmvvm.R
 import com.poklad.notesmvvm.databinding.FragmentStartBinding
 import com.poklad.notesmvvm.utlits.APP_ACTIVITY
+import com.poklad.notesmvvm.utlits.AppPreference
 import com.poklad.notesmvvm.utlits.EMAIL
 import com.poklad.notesmvvm.utlits.PASSWORD
 import com.poklad.notesmvvm.utlits.TYPE_FIREBASE
@@ -22,13 +23,21 @@ class StartFragment : Fragment() {
     private lateinit var startViewModel: StartFragmentViewModel
     override fun onStart() {
         super.onStart()
-        initialization()
+        startViewModel = ViewModelProvider(this)[StartFragmentViewModel::class.java]
+        if (AppPreference.getInitUSer()) {
+            startViewModel.initDatabase(AppPreference.getTypeDB()) {
+                APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+            }
+        } else {
+            initialization()
+        }
     }
 
     private fun initialization() {
-        startViewModel = ViewModelProvider(this)[StartFragmentViewModel::class.java]
         binding.btnRoom.setOnClickListener {
             startViewModel.initDatabase(TYPE_ROOM) {
+                AppPreference.setInitUser(true)
+                AppPreference.setTypeDb(TYPE_ROOM)
                 APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
             }
         }
@@ -41,8 +50,9 @@ class StartFragment : Fragment() {
                     EMAIL = inputEmail
                     PASSWORD = inputPassword
                     startViewModel.initDatabase(TYPE_FIREBASE) {
-//                        APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
-                        showToast("INIT Success")
+                        AppPreference.setInitUser(true)
+                        AppPreference.setTypeDb(TYPE_FIREBASE)
+                        APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
                     }
                 } else {
                     showToast(getString(R.string.toast_wrong_emter))

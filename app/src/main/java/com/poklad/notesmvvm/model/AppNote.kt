@@ -1,4 +1,5 @@
 package com.poklad.notesmvvm.model
+
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,5 +12,6 @@ data class AppNote(
     @ColumnInfo
     val name: String = "",
     @ColumnInfo
-    val text: String = ""
+    val text: String = "",
+    val idFirebase: String = ""
 ) : Serializable

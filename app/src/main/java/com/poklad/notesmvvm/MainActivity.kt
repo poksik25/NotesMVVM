@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.poklad.notesmvvm.databinding.ActivityMainBinding
 import com.poklad.notesmvvm.utlits.APP_ACTIVITY
+import com.poklad.notesmvvm.utlits.AppPreference
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mToolbar: Toolbar
@@ -23,5 +24,7 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
         setSupportActionBar(mToolbar)
         title = getString(R.string.notes)
+
+        AppPreference.getPreference(this)
     }
 }

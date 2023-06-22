@@ -10,7 +10,6 @@ import com.poklad.notesmvvm.model.AppNote
 class MainNoteAdapter() : RecyclerView.Adapter<MainNoteAdapter.MainNoteHolder>() {
     private var mListNotes = emptyList<AppNote>()
     private lateinit var binding: NoteItemBinding
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainNoteHolder {
         binding =
             NoteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

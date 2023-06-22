@@ -9,4 +9,7 @@ class MainFragmentViewModel(
 ) : AndroidViewModel(application) {
     val allNotes = REPOSITORY.allNotes
 
+    fun signOut(){
+        REPOSITORY.signOut()
+    }
 }

@@ -2,38 +2,72 @@ package com.poklad.notesmvvm.database.firebase
 
 import androidx.lifecycle.LiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.poklad.notesmvvm.database.DatabaseRepository
 import com.poklad.notesmvvm.model.AppNote
+import com.poklad.notesmvvm.utlits.AUTH
+import com.poklad.notesmvvm.utlits.AppPreference
+import com.poklad.notesmvvm.utlits.CURRENT_ID
 import com.poklad.notesmvvm.utlits.EMAIL
+import com.poklad.notesmvvm.utlits.ID_FIREBASE
+import com.poklad.notesmvvm.utlits.NAME
 import com.poklad.notesmvvm.utlits.PASSWORD
+import com.poklad.notesmvvm.utlits.REF_DATABASE
+import com.poklad.notesmvvm.utlits.TEXT
+import com.poklad.notesmvvm.utlits.showToast
 
 class AppFirebaseRepository : DatabaseRepository {
+    init {
+        AUTH = FirebaseAuth.getInstance()
+    }
 
-    private val mAuth = FirebaseAuth.getInstance()
-    override val allNotes: LiveData<List<AppNote>>
-        get() = TODO("Not yet implemented")
-
+    override val allNotes: LiveData<List<AppNote>> = AllNoteLiveData()
     override suspend fun insert(note: AppNote, onSuccess: () -> Unit) {
-        TODO("Not yet implemented")
+        val idNote = REF_DATABASE.push().key.toString()
+        val mapNote = hashMapOf<String, Any>()
+        mapNote[ID_FIREBASE] = idNote
+        mapNote[NAME] = note.name
+        mapNote[TEXT] = note.text
+
+        REF_DATABASE.child(idNote)
+            .updateChildren(mapNote)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { showToast(it.message.toString()) }
     }
 
     override suspend fun delete(note: AppNote, onSuccess: () -> Unit) {
-        TODO("Not yet implemented")
+        REF_DATABASE.child(note.idFirebase).removeValue()
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { showToast(it.message.toString()) }
     }
 
     override fun connectToDatabase(onSuccess: () -> Unit, onFail: (String) -> Unit) {
-        mAuth.signInWithEmailAndPassword(EMAIL, PASSWORD)
-            .addOnSuccessListener {
-                onSuccess()
-            }.addOnFailureListener {
-                mAuth.createUserWithEmailAndPassword(EMAIL, PASSWORD)
-                    .addOnSuccessListener {
-                        onSuccess()
-                    }.addOnFailureListener { onFail(it.message.toString()) }
-            }
+        if (AppPreference.getInitUSer()) {
+            initRef()
+        } else {
+            AUTH.signInWithEmailAndPassword(EMAIL, PASSWORD)
+                .addOnSuccessListener {
+                    initRef()
+                    onSuccess()
+                }
+                .addOnFailureListener() {
+                    AUTH.createUserWithEmailAndPassword(EMAIL, PASSWORD)
+                        .addOnSuccessListener {
+                            initRef()
+                            onSuccess()
+                        }
+                        .addOnFailureListener { onFail(it.message.toString()) }
+                }
+        }
+    }
+
+    private fun initRef() {
+        CURRENT_ID = AUTH.currentUser?.uid.toString()
+        REF_DATABASE = FirebaseDatabase.getInstance().reference
+            .child(CURRENT_ID)
     }
 
     override fun signOut() {
-        mAuth.signOut()
+        AUTH.signOut()
     }
 }
