@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         APP_ACTIVITY =
-            this                             //todo контекст из любого места в приложении. Так МОЖНО?
+            this                             //todo контекст из любого места в приложении. Так МОЖНО? - Нет, если тебе нужно во фрагменте иметь доступ к активети, ты можешь вызвать метод - requestActivity() или нулэймл поле activity
         mToolbar = binding.toolbar
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_container)
         setSupportActionBar(mToolbar)
