@@ -2,6 +2,7 @@ package com.poklad.notesmvvm.screens.start
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.poklad.notesmvvm.database.firebase.AppFirebaseRepository
 import com.poklad.notesmvvm.database.room.AppRoomDatabase
 import com.poklad.notesmvvm.database.room.AppRoomRepository
 import com.poklad.notesmvvm.utlits.REPOSITORY
@@ -23,7 +24,8 @@ class StartFragmentViewModel(
             }
 
             TYPE_FIREBASE -> {
-                showToast("FIREBASE")
+                REPOSITORY = AppFirebaseRepository()
+                REPOSITORY.connectToDatabase({ onSuccess() }, { showToast(it) })//колбэки todo
             }
         }
     }

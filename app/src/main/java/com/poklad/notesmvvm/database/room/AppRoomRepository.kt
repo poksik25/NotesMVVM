@@ -12,7 +12,7 @@ class AppRoomRepository(
 
     override suspend fun insert(note: AppNote, onSuccess: () -> Unit) {
         appRoomDao.insert(note)
-        onSuccess()//todo зачем
+        onSuccess()
     }
 
     override suspend fun delete(note: AppNote, onSuccess: () -> Unit) {

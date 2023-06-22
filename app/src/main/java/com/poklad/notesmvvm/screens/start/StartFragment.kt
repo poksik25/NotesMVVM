@@ -1,5 +1,6 @@
 package com.poklad.notesmvvm.screens.start
 
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,7 +41,8 @@ class StartFragment : Fragment() {
                     EMAIL = inputEmail
                     PASSWORD = inputPassword
                     startViewModel.initDatabase(TYPE_FIREBASE) {
-                        APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+//                        APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+                        showToast("INIT Success")
                     }
                 } else {
                     showToast(getString(R.string.toast_wrong_emter))
@@ -59,7 +61,6 @@ class StartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentStartBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

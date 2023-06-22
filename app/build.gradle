@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.kapt'
-    id 'kotlin-parcelize'
     id 'com.google.gms.google-services'
 }
 
@@ -39,9 +38,13 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-auth:22.0.0'
+    implementation 'com.google.firebase:firebase-database:20.2.2'
     def nav_version = "2.6.0"
+/*     implementation 'com.google.firebase:firebase-auth:21.1.0'
+     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'*/
     // Kotlin
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     // Feature module Support
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
@@ -64,6 +67,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
 }

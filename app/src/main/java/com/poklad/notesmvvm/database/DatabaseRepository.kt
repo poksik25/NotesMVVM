@@ -9,5 +9,5 @@ interface DatabaseRepository {
 
     //todo сделать отдельный интерфейс для поддержания SOLID?
     fun connectToDatabase(onSuccess: () -> Unit, onFail: (String) -> Unit) {}
-    fun signOut(){}
+    fun signOut() {}
 }

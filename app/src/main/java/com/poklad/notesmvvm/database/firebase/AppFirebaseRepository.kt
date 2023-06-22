@@ -1,11 +1,15 @@
 package com.poklad.notesmvvm.database.firebase
 
 import androidx.lifecycle.LiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.poklad.notesmvvm.database.DatabaseRepository
 import com.poklad.notesmvvm.model.AppNote
+import com.poklad.notesmvvm.utlits.EMAIL
+import com.poklad.notesmvvm.utlits.PASSWORD
 
-class AppFirebaseRepository:DatabaseRepository {
+class AppFirebaseRepository : DatabaseRepository {
 
+    private val mAuth = FirebaseAuth.getInstance()
     override val allNotes: LiveData<List<AppNote>>
         get() = TODO("Not yet implemented")
 
@@ -18,10 +22,18 @@ class AppFirebaseRepository:DatabaseRepository {
     }
 
     override fun connectToDatabase(onSuccess: () -> Unit, onFail: (String) -> Unit) {
-        super.connectToDatabase(onSuccess, onFail)
+        mAuth.signInWithEmailAndPassword(EMAIL, PASSWORD)
+            .addOnSuccessListener {
+                onSuccess()
+            }.addOnFailureListener {
+                mAuth.createUserWithEmailAndPassword(EMAIL, PASSWORD)
+                    .addOnSuccessListener {
+                        onSuccess()
+                    }.addOnFailureListener { onFail(it.message.toString()) }
+            }
     }
 
     override fun signOut() {
-        super.signOut()
+        mAuth.signOut()
     }
 }
